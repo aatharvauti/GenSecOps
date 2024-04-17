@@ -17,7 +17,7 @@ model_endpoints = {
     "fb-bart": "facebook/bart-large-cnn", # Summarization
     "falcon": "Falconsai/text_summarization", # Summarization
     "mistralai": "mistralai/Mistral-7B-Instruct-v0.2", # Generalised
-    "gpt2": "gpt2",
+    "gpt2": "gpt2", # Generalised
     "roberta": "deepset/roberta-base-squad2", # Question Answering
     "distilbert-sst2": "distilbert-base-uncased-finetuned-sst-2-english", # Sentiment Analysis
     "pegasus": "starcatmeow/autotrain-cybersecurity-summarization-pegasus-x-book-43369110299", # Cybersecurity
@@ -27,6 +27,7 @@ model_endpoints = {
 API_URL = "https://api-inference.huggingface.co/models/"
 
 def query_hf_model(model_name, payload):
+    load_dotenv()
     """
     Makes a POST request to the Hugging Face Inference API for a specified model.
     

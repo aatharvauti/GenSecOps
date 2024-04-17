@@ -14,10 +14,13 @@ logging.basicConfig(level=logging.INFO)
 
 # Model endpoints mapping
 model_endpoints = {
-    "fb-bart": "facebook/bart-large-cnn",
-    "mistralai": "mistralai/Mistral-7B-Instruct-v0.2",
-    "roberta": "deepset/roberta-base-squad2",
-    "distilbert-sst2": "distilbert-base-uncased-finetuned-sst-2-english",
+    "fb-bart": "facebook/bart-large-cnn", # Summarization
+    "falcon": "Falconsai/text_summarization", # Summarization
+    "mistralai": "mistralai/Mistral-7B-Instruct-v0.2", # Generalised
+    "gpt2": "gpt2",
+    "roberta": "deepset/roberta-base-squad2", # Question Answering
+    "distilbert-sst2": "distilbert-base-uncased-finetuned-sst-2-english", # Sentiment Analysis
+    "pegasus": "starcatmeow/autotrain-cybersecurity-summarization-pegasus-x-book-43369110299", # Cybersecurity
 }
 
 # Hugging Face API endpoint
@@ -80,6 +83,10 @@ def generate_answer():
         payload = {"inputs": {"question": "Who was the person?", "context": str(question),}}
     elif model_key == "fb-bart":
         payload = {"inputs": question, "parameters": {"do_sample": False},}
+    elif model_key == "falcon":
+        payload = {"inputs": question, "parameters": {"do_sample": False, "max_length": 10000, "min_length": 50},}
+    elif model_key == "gpt2":
+        payload = {"inputs": question, "parameters": {"max_new_tokens": 230, "truncation": "only_first"},}
     else:
         payload = {"inputs": "Can you summarise this content in pointers?" + question}
 

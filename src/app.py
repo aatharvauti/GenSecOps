@@ -88,7 +88,7 @@ def generate_answer():
     elif model_key == "gpt2":
         payload = {"inputs": question, "parameters": {"max_new_tokens": 230, "truncation": "only_first"},}
     else:
-        payload = {"inputs": "Can you summarise this content in pointers?" + question}
+        payload = {"inputs": "Can you summarise this content in pointers? " + question}
 
     result = query_hf_model(model_name, payload)
     return jsonify(result)

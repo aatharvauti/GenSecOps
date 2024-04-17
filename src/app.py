@@ -78,8 +78,10 @@ def generate_answer():
 
     if model_key == "roberta":
         payload = {"inputs": {"question": "Who was the person?", "context": str(question),}}
+    elif model_key == "fb-bart":
+        payload = {"inputs": question, "parameters": {"do_sample": False},}
     else:
-        payload = {"inputs": question}
+        payload = {"inputs": "Can you summarise this content in pointers?" + question}
 
     result = query_hf_model(model_name, payload)
     return jsonify(result)
